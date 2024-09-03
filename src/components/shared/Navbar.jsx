@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import Logo from "../../../public/logo.svg";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { FaXmark } from "react-icons/fa6";
+import { Button } from "../ui/button";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,10 +20,11 @@ const Navbar = () => {
     { path: "/community", title: "Community" },
     { path: "/about", title: "About" },
     { path: "/hellp", title: "Help" },
+    { path: "/job-post", title: "Job Post" },
   ];
   return (
     <header className="">
-      <div className="flex items-center justify-between p-6 bg-white w-full h-14 drop-shadow-md">
+      <div className="flex items-center justify-between p-6 bg-white w-screen h-14 drop-shadow-md">
         <div>
           <div className="flex items-center gap-2  ">
             <img className="w-10 h-8" src="../../../public/logo.svg" alt="" />
@@ -37,7 +39,7 @@ const Navbar = () => {
               <li key={path}>
                 <NavLink
                   to={path}
-                  className={({ isActive }) => (isActive ? "active" : "")}
+                  className={({ isActive }) => (!isActive ? "" : "active")}
                 >
                   {title}
                 </NavLink>
@@ -45,18 +47,28 @@ const Navbar = () => {
             ))}
           </ul>
         </div>
-        <div className="text-base text- font-medium space-x-5 hidden lg:block">
-          <NavLink to="/login" className="py-2 px-5 border rounded">
-            Log in
-          </NavLink>
+        <div>
+          <div className="text-base  font-medium space-x-5 hidden lg:block">
+            <NavLink
+              to="/login"
+              className="py-2 px-5 border rounded hover:bg-slate-600"
+            >
+              Log in
+            </NavLink>
 
-          <NavLink
-            to="/sign-in"
-            className="py-2 px-5 bg-blue-600 text-white border rounded"
-          >
-            Sign in
-          </NavLink>
+            <NavLink
+              to="/signup"
+              className={({ isActive }) =>
+                !isActive
+                  ? "py-2 px-5 bg-blue-600 text-white border rounded hover:bg-slate-600"
+                  : "py-2 px-5 bg-blue-900 text-white border rounded"
+              }
+            >
+              Sign in
+            </NavLink>
+          </div>
         </div>
+
         <div className="md:hidden block">
           <button onClick={handleMenuToggler}>
             {isMenuOpen ? <FaXmark /> : <FaBarsStaggered />}
