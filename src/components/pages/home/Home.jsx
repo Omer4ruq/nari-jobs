@@ -12,6 +12,8 @@ import { MdVerified } from "react-icons/md";
 import { FaCircleCheck } from "react-icons/fa6";
 import { BiFilterAlt } from "react-icons/bi";
 import { TbFilterSearch } from "react-icons/tb";
+import { Link } from "react-router-dom";
+import RightSidebar from "@/components/sidebar/RightSidebar";
 
 const Home = () => {
   const [selectCategory, setSelectCategory] = useState(null);
@@ -21,7 +23,7 @@ const Home = () => {
   const itemPerPage = 6;
   useEffect(() => {
     setIsLoading(true);
-    fetch("jobs.json")
+    fetch("http://localhost:3000/all-jobs")
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -167,7 +169,9 @@ const Home = () => {
           )}
         </div>
 
-        <div className="bg-white p-4 rounded">right</div>
+        <div className="bg-white p-4 rounded">
+          <RightSidebar></RightSidebar>
+        </div>
       </div>
     </div>
   );

@@ -4,9 +4,32 @@ import { Link } from "react-router-dom";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { RadioGroup } from "../ui/radio-group";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getAuth } from "firebase/auth";
+import app from "@/firebase/firebase.config";
 
 const Login = () => {
+  const auth = getAuth();
+
+  const googleProvider = new GoogleAuthProvider();
   function submitHandler() {}
+
+  const handleGoogleLogin = () => {
+    signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        const user = result.user;
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  };
   return (
     <div>
       <div>
@@ -54,6 +77,13 @@ const Login = () => {
 
             <Button type="submit" className="w-full my-4">
               Login
+            </Button>
+            <Button
+              type="submit"
+              className="w-full my-4"
+              onClick={handleGoogleLogin}
+            >
+              Google Login
             </Button>
 
             <span className="text-sm">
